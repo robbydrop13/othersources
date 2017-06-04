@@ -1,0 +1,103 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "leboncoin-api",
+        "scope": null,
+        "escapedName": "leboncoin-api",
+        "name": "leboncoin-api",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/Users/robinbonduelle/Dropbox/2. Perso/6.Code/SeLoger/otherSources"
+    ]
+  ],
+  "_from": "leboncoin-api@latest",
+  "_id": "leboncoin-api@0.0.11",
+  "_inCache": true,
+  "_location": "/leboncoin-api",
+  "_nodeVersion": "6.10.3",
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/leboncoin-api-0.0.11.tgz_1494856657963_0.32675617095083"
+  },
+  "_npmUser": {
+    "name": "tdurieux",
+    "email": "public@durieux.me"
+  },
+  "_npmVersion": "3.9.6",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "leboncoin-api",
+    "scope": null,
+    "escapedName": "leboncoin-api",
+    "name": "leboncoin-api",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/leboncoin-api/-/leboncoin-api-0.0.11.tgz",
+  "_shasum": "d02d439c5160c0350f6cd5ca6642497fe2e5cab3",
+  "_shrinkwrap": null,
+  "_spec": "leboncoin-api",
+  "_where": "/Users/robinbonduelle/Dropbox/2. Perso/6.Code/SeLoger/otherSources",
+  "author": {
+    "name": "Thomas Durieux"
+  },
+  "bugs": {
+    "url": "https://github.com/tdurieux/leboncoin-api/issues"
+  },
+  "dependencies": {
+    "cheerio": "^0.20.0",
+    "html-entities": "^1.2.0",
+    "iconv-lite": "^0.4.13",
+    "pixel-gif": "0.0.1",
+    "request": "^2.69.0"
+  },
+  "description": "leboncoin.fr API",
+  "devDependencies": {
+    "coveralls": "2.11.6",
+    "istanbul": "0.4.1",
+    "mocha": "2.3.4",
+    "should": "8.0.2"
+  },
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "dist": {
+    "shasum": "d02d439c5160c0350f6cd5ca6642497fe2e5cab3",
+    "tarball": "https://registry.npmjs.org/leboncoin-api/-/leboncoin-api-0.0.11.tgz"
+  },
+  "gitHead": "af70c9da31093863edda438e81a962068937e3d6",
+  "homepage": "https://github.com/tdurieux/leboncoin-api#readme",
+  "keywords": [
+    "le bon coin",
+    "leboncoin",
+    "leboncoin.fr"
+  ],
+  "license": "MIT",
+  "main": "./main.js",
+  "maintainers": [
+    {
+      "name": "tdurieux",
+      "email": "public@durieux.me"
+    }
+  ],
+  "name": "leboncoin-api",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tdurieux/leboncoin-api.git"
+  },
+  "scripts": {
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec  && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js || true"
+  },
+  "version": "0.0.11"
+}

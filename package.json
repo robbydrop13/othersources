@@ -1,0 +1,28 @@
+{
+  "name": "other_sources",
+  "version": "1.0.0",
+  "description": "Contains scrapping script to retrieve apparts from leboncoin and other sources",
+  "main": "index.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/charduelle/othersources.git"
+  },
+  "author": "robin bonduelle",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/charduelle/othersources#readme",
+  "engines": {
+    "node": "6.10.3",
+    "npm": "3.10.10"
+  },
+  "dependencies": {
+    "async": "^2.4.0",
+    "deasync": "^0.1.9",
+    "foreman": "2.0.0",
+    "leboncoin-api": "0.0.11",
+    "mongodb": "^2.2.26",
+    "underscore": "^1.8.3"
+  }
+}
