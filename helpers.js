@@ -1,5 +1,5 @@
 const leboncoin = require('leboncoin-api');
-const pap = require('./api/pap-api');
+const pap = require('./api/gpap-api');
 const mongodb = require('mongodb');
 const _ = require('underscore');
 const async = require('async');
@@ -293,7 +293,7 @@ function getPapApparts(results, elements) {
         }
 
         appart.link = details.link ? details.link : "";
-        appart.source = "papi";
+        appart.source = "pap";
 
         appart.typeString = typeString;
         appart.ges = details.ges ? details.ges : "";
