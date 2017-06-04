@@ -1,14 +1,13 @@
-const pap = require('./pap-api');
+const pap = require('../api/bienici-api');
 var search = new pap.Search()
-    .setType("maisons") // ventes_immobilières, locations
-    .setCategory("vente") // ventes_immobilières, locations
-    .setLocation("paris-75-g439") // paris, bordeaux, lyon
-    .setPage(1)
+    .setCategory("achat") // ventes_immobilières, locations
+    .setLocation("paris-75000") // paris, bordeaux, lyon
+    .setPage(1);
 
 search.run().then(function (data) {
     //console.log(data.page); // the current page 
     //console.log(data.nbResult); // the number of results for this search 
-    console.log(data.results[0]); // the array of results 
+    console.log(data.nbResults); // the array of results 
     //console.log(data.results.length);
     data.results[0].getDetails().then(function (details) {
         console.log(details); // the item 0 with more data such as description, all images, author, ... 

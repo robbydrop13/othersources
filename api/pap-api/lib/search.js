@@ -104,7 +104,7 @@ var convertStringDateToDate = function(dateString) {
 
 var parseDate = function($) {
   //return convertStringDateToDate($.find('.item_absolute > .item_supp').text().replace("Urgent", ""))
-  return convertStringDateToDate($.find('.date').text().replace(/^(.*?)\/ /g, ""))
+  return convertStringDateToDate($.find('.date').text().replace(/^(.*?)\/ /g, ""));
 };
 
 var parseImages = function($) {
@@ -148,7 +148,7 @@ var parseItems = function($, regex) {
 };
 
 var parsePrice = function($) {
-  return parseInt(cleanString($.find('.price > strong').text().replace(/\./g, '')))
+  return parseInt(cleanString($.find('.price > strong').text().replace(/\./g, '')));
 };
 
 var parseEntries = function($, category, type) {
@@ -231,7 +231,7 @@ Search.prototype.run = function(url, category, type) {
         resolve(output);
       });
     });
-}
+};
 
 module.exports.Search = Search;
 

@@ -8,29 +8,20 @@ const cleanString = require('./utils').cleanString;
 
 const userAgent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36';
 
-const Search = function (options) {
-    if (!(this instanceof Search)) 
+const Search = function(options) {
+    if (!(this instanceof Search))
         return new Search(options);
 
-    options = options || { };
+    options = options || {};
 
-    this.setType(options.type); // type de bien appartement, maison, garage, parking, ... possibilité d'en avoir plusieurs
     this.setCategory(options.category); // location ou vente
-    this.setLocation(options.location); // paris-75-g439, bordeaux-33-g43588, lyon-69-g43590
+    this.setLocation(options.location); // paris-75000, bordeaux-33000, lyon-69000
     this.setPage(options.page); // numéro de page
 };
 
-Search.prototype.type = "appartements";
-Search.prototype.category = "location";
+Search.prototype.category = "achat";
 Search.prototype.location = null;
 Search.prototype.page = 1;
-
-Search.prototype.setType = function(type) {
-    if (!!type) {
-        this.type = type;
-    }
-    return this;
-};
 
 Search.prototype.setLocation = function(location) {
     if (!!location) {
@@ -54,18 +45,23 @@ Search.prototype.setPage = function(page) {
 };
 
 Search.prototype.getUrl = function() {
-    const hostname = "www.pap.fr";
-    const protocol = "http";
-    const pathname = "annonce/" + this.category + "-" + this.type + "-" + this.location + "-" + this.page; 
-    
+    const hostname = "www.bienici.com";
+    const protocol = "https";
+    const pathname = "recherche/" + this.category + "/" + this.location;
+    const query = {
+        "page": this.page,
+        "tri": "publication-desc",
+    };
+
     const escapeOld = require('querystring').escape;
-    require('querystring').escape = function (value) {
+    require('querystring').escape = function(value) {
         return encodeURIComponent(value).replace(/%20/g, '+');
     };
     output = url.format({
         hostname: hostname,
         protocol: protocol,
-        pathname: pathname
+        pathname: pathname,
+        query: query
     });
     require('querystring').escape = escapeOld;
     return output;
@@ -86,76 +82,75 @@ const frenchMonth = {
     'décembre': 11,
 };
 
-var parseNbResult = function ($) {
-    //return $('.compteur-annonces strong').text(); // pour le nombre total
-    return $('.search-results-item>.box-header-favoris').length; // pour le nombre de résultats sur la page
+var parseNbResult = function($) {
+    return $('.resultsListContainer > article').length; // pour le nombre de résultats sur la page
 };
 
-var convertStringDateToDate = function (dateString) {
+var convertStringDateToDate = function(dateString) {
     const dates = dateString.split(" ");
     const date = new Date();
-    
+
     date.setDate(parseInt(dates[0]));
     date.setMonth(frenchMonth[dates[1]]);
     date.setYear(parseInt(dates[2]));
-    
+
     return date;
 };
 
-var parseDate = function ($) {
+var parseDate = function($) {
     //return convertStringDateToDate($.find('.item_absolute > .item_supp').text().replace("Urgent", ""))
-    return convertStringDateToDate($.find('.date').text().replace(/^(.*?)\/ /g,""))
+    return convertStringDateToDate($.find('.date').text().replace(/^(.*?)\/ /g, ""))
 };
 
-var parseImages = function ($) {
+var parseImages = function($) {
     const images = [];
     images.push('www.pap.fr/' + $.find('.thumb').attr('href'));
     return images;
 };
 
-var parseTitle = function ($) {
+var parseTitle = function($) {
     return $.find('a.title-item > span.h1').text();
 };
 
-var parseLink = function ($) {
+var parseLink = function($) {
     return "www.pap.fr" + $.find('.btn-details').attr('href');
 };
 
-var parseLocation = function ($) {
-    return parseInt($.find('.item-description > strong').text().match(/\([^\)]*\)/g,"")[0].replace(/\(|\)/g,""));
+var parseLocation = function($) {
+    return parseInt($.find('.item-description > strong').text().match(/\([^\)]*\)/g, "")[0].replace(/\(|\)/g, ""));
 };
 
-var parseCity = function ($) {
+var parseCity = function($) {
     return $.find('.item-description > strong').text().split(" ")[0];
 };
 
-var parseMetro = function ($) {
+var parseMetro = function($) {
     return $.find('.item-transports').text();
 };
 
-var parseItems = function ($, regex) {
-    for (i = 0; i<3; i++) {
+var parseItems = function($, regex) {
+    for (i = 0; i < 3; i++) {
         var li = $.find('.item-summary > li').eq(i).text();
 
-        if (li.match(regex)) { 
+        if (li.match(regex)) {
             if (regex == "/Surface/g") {
-                return parseInt(li.replace(/[^0-9\.]+/g,"").slice(0, -1));
+                return parseInt(li.replace(/[^0-9\.]+/g, "").slice(0, -1));
             } else {
-                return parseInt(li.replace(/[^0-9\.]+/g,""));
+                return parseInt(li.replace(/[^0-9\.]+/g, ""));
             }
         }
     }
 };
 
-var parsePrice = function ($) {
+var parsePrice = function($) {
     return parseInt(cleanString($.find('.price > strong').text().replace(/\./g, '')))
 };
 
-var parseEntries = function ($, category, type) {
+var parseEntries = function($, category, type) {
     var output = [];
 
 
-    $('.search-results-list > .search-results-item:has(>div.box-header-favoris)').each(function (index, entry) {
+    $('.search-results-list > .search-results-item:has(>div.box-header-favoris)').each(function(index, entry) {
         var $entry = $(entry);
         var title = parseTitle($entry);
         var date = parseDate($entry);
@@ -191,47 +186,48 @@ var parseEntries = function ($, category, type) {
 
 Search.prototype.run = function(url, category, type) {
     var self = this;
-    if (url == null) {
+    if (url === null) {
         url = this.getUrl();
     }
-    if (category == null) {
+    console.log(url);
+    if (category === null) {
         category = this.category;
     }
-    if (type == null) {
+    if (type === null) {
         type = this.type;
     }
     return new Promise(
-    function(resolve, reject) {
-        request.get({
-            uri: url,
-            encoding: null,
-            gzip: true,
-            headers: {
-                'User-Agent': userAgent // optional headers
-            }
-        }, function (err, res, body) {
-            if(err) {
-                return reject(err);
-            }
-            // decode the encoding
-            body = iconv.decode(body, 'iso-8859-1');
-            const opts = {
-                normalizeWhitespace: true,
-                decodeEntities: true
-            };
-            // load the html page in cheerio
-            const $ = cheerio.load(body, opts);
+        function(resolve, reject) {
+            request.get({
+                uri: url,
+                encoding: null,
+                gzip: true,
+                headers: {
+                    'User-Agent': userAgent // optional headers
+                }
+            }, function(err, res, body) {
+                if (err) {
+                    return reject(err);
+                }
+                // decode the encoding
+                body = iconv.decode(body, 'iso-8859-1');
+                const opts = {
+                    normalizeWhitespace: true,
+                    decodeEntities: true
+                };
+                // load the html page in cheerio
+                const $ = cheerio.load(body, opts);
 
-            const output = {
-                page: self.page,
-                nbResult: parseNbResult($),
-                results: parseEntries($, category, type)
-            };
-            
-            resolve(output);
+                const output = {
+                    page: self.page,
+                    nbResult: parseNbResult($),
+                    //results: parseEntries($, category, type)
+                };
+
+                resolve(output);
+            });
         });
-    });
-}
+};
 
 module.exports.Search = Search;
 
@@ -242,7 +238,7 @@ module.exports.parseImages = parseImages;
 module.exports.parseTitle = parseTitle;
 module.exports.parseLink = parseLink;
 module.exports.parseLocation = parseLocation;
-module.exports.parseCity= parseCity;
+module.exports.parseCity = parseCity;
 module.exports.parseMetro = parseMetro;
 module.exports.parseItems = parseItems;
 module.exports.parsePrice = parsePrice;
