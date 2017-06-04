@@ -1,5 +1,5 @@
 const leboncoin = require('leboncoin-api');
-const pap = require('./api/gpap-api');
+const pap = require('./api/pap-api');
 const mongodb = require('mongodb');
 const _ = require('underscore');
 const async = require('async');
