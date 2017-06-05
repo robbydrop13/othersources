@@ -4,23 +4,37 @@ var search = new pap.Search()
     .setLocation("paris-75000") // paris, bordeaux, lyon
     .setPage(1);
 
-search.run().then(function (data) {
-    //console.log(data.page); // the current page 
-    //console.log(data.nbResult); // the number of results for this search 
-    console.log(data.nbResults); // the array of results 
-    //console.log(data.results.length);
-    data.results[0].getDetails().then(function (details) {
-        console.log(details); // the item 0 with more data such as description, all images, author, ... 
-    }, function (err) {
-        console.error(err);
-    });
-    // data.results[0].getPhoneNumber().then(function (phoneNumer) {
-    //     //console.log(phoneNumer); // the phone number of the author if available 
-    // }, function (err) {
-    //     console.error(err); // if the phone number is not available or not parsable (image -> string)  
-    // });
-}, function (err) {
-    console.error(err);
+// search.run().then(function (data) {
+//     //console.log(data.page); // the current page 
+//     //console.log(data.nbResult); // the number of results for this search 
+//     console.log(data.nbResults); // the array of results 
+//     //console.log(data.results.length);
+//     // data.results[0].getDetails().then(function (details) {
+//     //     console.log(details); // the item 0 with more data such as description, all images, author, ... 
+//     // }, function (err) {
+//     //     console.error(err);
+//     // });
+//     // data.results[0].getPhoneNumber().then(function (phoneNumer) {
+//     //     //console.log(phoneNumer); // the phone number of the author if available 
+//     // }, function (err) {
+//     //     console.error(err); // if the phone number is not available or not parsable (image -> string)  
+//     // });
+// }, function (err) {
+//     console.error(err);
+// });
+
+const request = require('request');
+const cheerio = require('cheerio');
+
+var url = 'https://www.bienici.com/recherche/achat/paris-75000.com/';
+
+var customHeaderRequest = request.defaults({
+    headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'}
+});
+
+customHeaderRequest.get(url, function(err, resp, body){
+  $ = cheerio.load(body);
+  console.log($('#public').html());
 });
 
 // Script node pour récupérer les annonces

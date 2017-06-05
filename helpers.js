@@ -1,4 +1,4 @@
-const leboncoin = require('leboncoin-api');
+const leboncoin = require('./api/leboncoin-api');
 const pap = require('./api/pap-api');
 const mongodb = require('mongodb');
 const _ = require('underscore');
@@ -260,7 +260,7 @@ function getPapApparts(results, elements) {
         appart.mainId = mainId;
         appart.id = details.id ? details.id : "";
         appart.transactionType = elements[0] == "location" ? 1 : 2;
-        appart.type = elements[2];
+        appart.type = type;
         appart.creationDate = details.date ? details.date : "";
         appart.title = details.title ? details.title : "";
         appart.label = "";

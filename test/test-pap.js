@@ -1,4 +1,4 @@
-const pap = require('./../pap-api');
+const pap = require('../api/pap-api');
 var search = new pap.Search()
     .setType("maisons") // ventes_immobilières, locations
     .setCategory("vente") // ventes_immobilières, locations

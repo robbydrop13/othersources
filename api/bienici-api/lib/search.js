@@ -83,129 +83,123 @@ const frenchMonth = {
 };
 
 var parseNbResult = function($) {
+    console.log($('#public').html());
     return $('.resultsListContainer > article').length; // pour le nombre de résultats sur la page
 };
 
-var convertStringDateToDate = function(dateString) {
-    const dates = dateString.split(" ");
-    const date = new Date();
+// var convertStringDateToDate = function(dateString) {
+//     const dates = dateString.split(" ");
+//     const date = new Date();
 
-    date.setDate(parseInt(dates[0]));
-    date.setMonth(frenchMonth[dates[1]]);
-    date.setYear(parseInt(dates[2]));
+//     date.setDate(parseInt(dates[0]));
+//     date.setMonth(frenchMonth[dates[1]]);
+//     date.setYear(parseInt(dates[2]));
 
-    return date;
-};
+//     return date;
+// };
 
-var parseDate = function($) {
-    //return convertStringDateToDate($.find('.item_absolute > .item_supp').text().replace("Urgent", ""))
-    return convertStringDateToDate($.find('.date').text().replace(/^(.*?)\/ /g, ""))
-};
+// var parseDate = function($) {
+//     //return convertStringDateToDate($.find('.item_absolute > .item_supp').text().replace("Urgent", ""))
+//     return convertStringDateToDate($.find('.date').text().replace(/^(.*?)\/ /g, ""))
+// };
 
-var parseImages = function($) {
-    const images = [];
-    images.push('www.pap.fr/' + $.find('.thumb').attr('href'));
-    return images;
-};
+// var parseImages = function($) {
+//     const images = [];
+//     images.push('www.pap.fr/' + $.find('.thumb').attr('href'));
+//     return images;
+// };
 
-var parseTitle = function($) {
-    return $.find('a.title-item > span.h1').text();
-};
+// var parseTitle = function($) {
+//     return $.find('a.title-item > span.h1').text();
+// };
 
-var parseLink = function($) {
-    return "www.pap.fr" + $.find('.btn-details').attr('href');
-};
+// var parseLink = function($) {
+//     return "www.pap.fr" + $.find('.btn-details').attr('href');
+// };
 
-var parseLocation = function($) {
-    return parseInt($.find('.item-description > strong').text().match(/\([^\)]*\)/g, "")[0].replace(/\(|\)/g, ""));
-};
+// var parseLocation = function($) {
+//     return parseInt($.find('.item-description > strong').text().match(/\([^\)]*\)/g, "")[0].replace(/\(|\)/g, ""));
+// };
 
-var parseCity = function($) {
-    return $.find('.item-description > strong').text().split(" ")[0];
-};
+// var parseCity = function($) {
+//     return $.find('.item-description > strong').text().split(" ")[0];
+// };
 
-var parseMetro = function($) {
-    return $.find('.item-transports').text();
-};
+// var parseMetro = function($) {
+//     return $.find('.item-transports').text();
+// };
 
-var parseItems = function($, regex) {
-    for (i = 0; i < 3; i++) {
-        var li = $.find('.item-summary > li').eq(i).text();
+// var parseItems = function($, regex) {
+//     for (i = 0; i < 3; i++) {
+//         var li = $.find('.item-summary > li').eq(i).text();
 
-        if (li.match(regex)) {
-            if (regex == "/Surface/g") {
-                return parseInt(li.replace(/[^0-9\.]+/g, "").slice(0, -1));
-            } else {
-                return parseInt(li.replace(/[^0-9\.]+/g, ""));
-            }
-        }
-    }
-};
+//         if (li.match(regex)) {
+//             if (regex == "/Surface/g") {
+//                 return parseInt(li.replace(/[^0-9\.]+/g, "").slice(0, -1));
+//             } else {
+//                 return parseInt(li.replace(/[^0-9\.]+/g, ""));
+//             }
+//         }
+//     }
+// };
 
-var parsePrice = function($) {
-    return parseInt(cleanString($.find('.price > strong').text().replace(/\./g, '')))
-};
+// var parsePrice = function($) {
+//     return parseInt(cleanString($.find('.price > strong').text().replace(/\./g, '')))
+// };
 
-var parseEntries = function($, category, type) {
-    var output = [];
+// var parseEntries = function($, category) {
+//     var output = [];
 
 
-    $('.search-results-list > .search-results-item:has(>div.box-header-favoris)').each(function(index, entry) {
-        var $entry = $(entry);
-        var title = parseTitle($entry);
-        var date = parseDate($entry);
-        var images = parseImages($entry);
-        var link = parseLink($entry);
-        var location = parseLocation($entry);
-        var city = parseCity($entry);
-        var metro = parseMetro($entry);
-        var rooms = parseItems($entry, /Pièce/g);
-        var bedrooms = parseItems($entry, /Chambre/g);
-        var surface = parseItems($entry, /Surface/g);
-        var price = parsePrice($entry);
+//     $('.search-results-list > .search-results-item:has(>div.box-header-favoris)').each(function(index, entry) {
+//         var $entry = $(entry);
+//         var title = parseTitle($entry);
+//         var date = parseDate($entry);
+//         var images = parseImages($entry);
+//         var link = parseLink($entry);
+//         var location = parseLocation($entry);
+//         var city = parseCity($entry);
+//         var metro = parseMetro($entry);
+//         var rooms = parseItems($entry, /Pièce/g);
+//         var bedrooms = parseItems($entry, /Chambre/g);
+//         var surface = parseItems($entry, /Surface/g);
+//         var price = parsePrice($entry);
 
-        output.push(new item.Item({
-            title: title,
-            category: category,
-            type: type,
-            link: link,
-            images: images,
-            location: location,
-            city: city,
-            metro: metro,
-            rooms: rooms,
-            bedrooms: bedrooms,
-            surface: surface,
-            price: price,
-            date: date
-        }));
-    });
+//         output.push(new item.Item({
+//             title: title,
+//             category: category,
+//             type: type,
+//             link: link,
+//             images: images,
+//             location: location,
+//             city: city,
+//             metro: metro,
+//             rooms: rooms,
+//             bedrooms: bedrooms,
+//             surface: surface,
+//             price: price,
+//             date: date
+//         }));
+//     });
 
-    return output;
-};
+//     return output;
+// };
 
-Search.prototype.run = function(url, category, type) {
+Search.prototype.run = function(url, category) {
     var self = this;
-    if (url === null) {
+    if (url == null) {
         url = this.getUrl();
     }
     console.log(url);
-    if (category === null) {
+    if (category == null) {
         category = this.category;
-    }
-    if (type === null) {
-        type = this.type;
     }
     return new Promise(
         function(resolve, reject) {
-            request.get({
-                uri: url,
-                encoding: null,
-                gzip: true,
-                headers: {
-                    'User-Agent': userAgent // optional headers
-                }
-            }, function(err, res, body) {
+            var customHeaderRequest = request.defaults({
+                headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'}
+            });
+            customHeaderRequest.get({ url }, function(err, res, body) {
                 if (err) {
                     return reject(err);
                 }
@@ -221,7 +215,7 @@ Search.prototype.run = function(url, category, type) {
                 const output = {
                     page: self.page,
                     nbResult: parseNbResult($),
-                    //results: parseEntries($, category, type)
+                    //results: parseEntries($, category)
                 };
 
                 resolve(output);
@@ -231,15 +225,15 @@ Search.prototype.run = function(url, category, type) {
 
 module.exports.Search = Search;
 
-module.exports.convertStringDateToDate = convertStringDateToDate;
-module.exports.parseDate = parseDate;
-module.exports.parseNbResult = parseNbResult;
-module.exports.parseImages = parseImages;
-module.exports.parseTitle = parseTitle;
-module.exports.parseLink = parseLink;
-module.exports.parseLocation = parseLocation;
-module.exports.parseCity = parseCity;
-module.exports.parseMetro = parseMetro;
-module.exports.parseItems = parseItems;
-module.exports.parsePrice = parsePrice;
-module.exports.parseEntries = parseEntries;
+// module.exports.convertStringDateToDate = convertStringDateToDate;
+// module.exports.parseDate = parseDate;
+// module.exports.parseNbResult = parseNbResult;
+// module.exports.parseImages = parseImages;
+// module.exports.parseTitle = parseTitle;
+// module.exports.parseLink = parseLink;
+// module.exports.parseLocation = parseLocation;
+// module.exports.parseCity = parseCity;
+// module.exports.parseMetro = parseMetro;
+// module.exports.parseItems = parseItems;
+// module.exports.parsePrice = parsePrice;
+// module.exports.parseEntries = parseEntries;

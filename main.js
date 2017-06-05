@@ -1,9 +1,14 @@
 const helpers = require('./helpers.js');
 const setup = require('./config.js').setup();
+const async = require('async');
 
+// console.log("Starting PAP");
+// helpers.getNewApparts('pap', setup.pap);
+
+console.log("Starting Leboncoin");
 helpers.getNewApparts('leboncoin', setup.leboncoin);
-helpers.getNewApparts('pap', setup.pap);
 
-
-
-
+setTimeout(function() {
+  console.log("Starting PAP");
+  helpers.getNewApparts('pap', setup.pap);
+}, 30 * 1000);

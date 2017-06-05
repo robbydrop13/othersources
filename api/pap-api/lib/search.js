@@ -2,11 +2,9 @@ const cheerio = require('cheerio');
 const request = require('request');
 const url = require('url');
 const iconv = require('iconv-lite');
-
 const item = require('./item');
 const cleanString = require('./utils').cleanString;
-
-const userAgent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36';
+const config = require('../../../config.js');
 
 const Search = function(options) {
   if (!(this instanceof Search))
@@ -206,8 +204,9 @@ Search.prototype.run = function(url, category, type) {
         uri: url,
         encoding: null,
         gzip: true,
+        proxy: config.proxy(),
         headers: {
-          'User-Agent': userAgent // optional headers
+          'User-Agent': config.userAgent()
         }
       }, function(err, res, body) {
         if (err) {

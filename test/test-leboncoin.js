@@ -1,4 +1,4 @@
-const leboncoin = require('leboncoin-api');
+const leboncoin = require('../api/leboncoin-api');
 var search = new leboncoin.Search()
     .setPage(1)
     //.setQuery("maison")

@@ -2,10 +2,8 @@ const cheerio = require('cheerio');
 const request = require('request');
 const url = require('url');
 const iconv = require('iconv-lite');
-
 const cleanString = require('./utils').cleanString;
-
-const userAgent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36';
+const config = require('../../../config.js');
 
 const Item = function(options) {
     if (!(this instanceof Item))
@@ -71,8 +69,9 @@ Item.prototype.getDetails = function() {
                 uri: url,
                 encoding: null,
                 gzip: true,
+                proxy: config.proxy(),
                 headers: {
-                    'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36" // optional headers
+                    'User-Agent': config.userAgent()
                 }
             }, function(err, res, body) {
                 if (err) {

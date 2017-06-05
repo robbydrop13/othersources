@@ -1,2 +1,3 @@
-worker: node pap.js
-test: node test-pap.js
+worker: node main.js
+test-pap: node test-pap.js
+test-leboncoin: node test-leboncoin.js
