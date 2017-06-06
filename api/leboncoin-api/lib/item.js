@@ -277,7 +277,7 @@ var getPhoneNumberAddress = function(id) {
         uri: url,
         gzip: true,
         json: true,
-        proxy: config.proxy(),
+        //proxy: config.proxy(),
         headers: {
           'User-Agent': config.userAgent()
         }

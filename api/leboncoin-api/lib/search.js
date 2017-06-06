@@ -300,7 +300,7 @@ Search.prototype.run = function(url) {
         uri: url,
         encoding: null,
         gzip: true,
-        proxy: config.proxy(),
+        //proxy: config.proxy(),
         headers: {
           'User-Agent': config.userAgent()
         }
