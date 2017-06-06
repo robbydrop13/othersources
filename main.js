@@ -11,4 +11,4 @@ helpers.getNewApparts('leboncoin', setup.leboncoin);
 setTimeout(function() {
   console.log("Starting PAP");
   helpers.getNewApparts('pap', setup.pap);
-}, 30 * 1000);
+}, 50 * 1000);

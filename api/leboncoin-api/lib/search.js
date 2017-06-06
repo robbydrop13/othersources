@@ -256,6 +256,10 @@ var parsePrice = function($) {
   return parseInt(cleanString($.find('.item_price').text().replace(/ /g, '')))
 };
 
+var parseBody = function($) {
+    return $('body').html();
+};
+
 var parseEntries = function($) {
   var output = [];
 
@@ -316,7 +320,8 @@ Search.prototype.run = function(url) {
         const output = {
           page: self.page,
           nbResult: parseNbResult($),
-          results: parseEntries($)
+          results: parseEntries($),
+          body: parseBody($)
         };
 
         resolve(output);

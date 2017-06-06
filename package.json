@@ -19,9 +19,16 @@
   },
   "dependencies": {
     "async": "^2.4.0",
+    "cheerio": "^1.0.0-rc.1",
     "deasync": "^0.1.9",
     "foreman": "2.0.0",
+    "html-entities": "^1.2.1",
+    "iconv-lite": "^0.4.17",
+    "leboncoin-api": "^0.0.11",
     "mongodb": "^2.2.26",
-    "underscore": "^1.8.3"
+    "pixel-gif": "^0.0.1",
+    "request": "^2.81.0",
+    "underscore": "^1.8.3",
+    "url": "^0.11.0"
   }
 }

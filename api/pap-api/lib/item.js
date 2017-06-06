@@ -60,6 +60,10 @@ var parseMeta = function($) {
     return output;
 };
 
+var parseBody = function($) {
+    return $('body').html();
+};
+
 Item.prototype.getDetails = function() {
     var url = this.getUrl();
     var self = this;
@@ -89,6 +93,7 @@ Item.prototype.getDetails = function() {
 
                 self.images = parseImages($);
                 self.description = parseDescription($);
+                self.body = parseBody($);
 
                 resolve(self);
             });

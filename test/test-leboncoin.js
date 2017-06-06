@@ -13,10 +13,11 @@ search.setCategory("locations");
 search.run().then(function (data) {
     //console.log(data.page); // the current page 
     //console.log(data.nbResult); // the number of results for this search 
-    console.log(data.results); // the array of results 
+    console.log(data.body); // the array of results 
+    console.log(data.nbResult);
     //console.log(data.results.length);
     data.results[0].getDetails().then(function (details) {
-        console.log(details); // the item 0 with more data such as description, all images, author, ... 
+        //console.log(details); // the item 0 with more data such as description, all images, author, ... 
     }, function (err) {
         console.error(err);
     });

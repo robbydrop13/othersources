@@ -64,7 +64,7 @@ function delaySearchs(elements, index) {
   setTimeout(function() {
     console.log("1. Processing " + elements);
     searchApparts(elements);
-  }, (index) * 2000);
+  }, (index) * 6000);
 }
 
 function searchApparts(elements, callback) {
@@ -127,7 +127,6 @@ function filterApparts(apparts) {
   // Filter to keep only today's new results.
   // For date condition, no need to check month (only day) because we get just page 1.
   // For new results, condition is based on lbc id, but I might need to use mainId concatenation.
-
   apparts = apparts.filter(function(result) {
     return result.date.getDate() == today.getDate() && !appartList.includes(result.id);
   });
@@ -235,7 +234,7 @@ function getLbcApparts(results, elements) {
 function getPapApparts(results, elements) {
   var apparts = [];
   results = filterApparts(results);
-
+  
   async.eachSeries(results,
     function(result, callback) {
       result.getDetails().then(function(details) {

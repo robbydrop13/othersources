@@ -93,9 +93,9 @@ var convertStringDateToDate = function(dateString) {
   const dates = dateString.split(" ");
   const date = new Date();
 
-  date.setDate(parseInt(dates[0]));
-  date.setMonth(frenchMonth[dates[1]]);
-  date.setYear(parseInt(dates[2]));
+  date.setDate(parseInt(dates[1]));
+  date.setMonth(frenchMonth[dates[2]]);
+  date.setYear(parseInt(dates[3]));
 
   return date;
 };
@@ -147,6 +147,10 @@ var parseItems = function($, regex) {
 
 var parsePrice = function($) {
   return parseInt(cleanString($.find('.price > strong').text().replace(/\./g, '')));
+};
+
+var parseBody = function($) {
+    return $('body').html();
 };
 
 var parseEntries = function($, category, type) {
@@ -224,7 +228,8 @@ Search.prototype.run = function(url, category, type) {
         const output = {
           page: self.page,
           nbResult: parseNbResult($),
-          results: parseEntries($, category, type)
+          results: parseEntries($, category, type),
+          body: parseBody($)
         };
 
         resolve(output);
