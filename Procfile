@@ -1,3 +1,5 @@
 worker: node main.js
 test-pap: node test-pap.js
-test-leboncoin: node test-leboncoin.js
+test-lbc: node test-leboncoin.js
+main-pap: node main-pap.js
+main-lbc: node main-lbc.js
