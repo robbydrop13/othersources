@@ -4,7 +4,7 @@
   "description": "Contains scrapping script to retrieve apparts from leboncoin and other sources",
   "main": "index.js",
   "scripts": {
-    "start": "node main.js"
+    "start": "node main-lbc.js"
   },
   "repository": {
     "type": "git",
